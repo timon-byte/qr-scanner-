@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Ticket Scanner – DB.k</title>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎫 Ticket-Scanner – DB.k</h1>
+  <div id="reader" style="width: 100%; max-width: 400px; margin: auto;"></div>
+  <div id="result">Scanne ein Ticket …</div>
+
+  <script>
+    function onScanSuccess(decodedText, decodedResult) {
+      document.getElementById('result').innerText = "✔️ Ticket erkannt:\n\n" + decodedText;
+    }
+
+    function onScanError(errorMessage) {
+      // Fehler ignorieren (z. B. schlechte Kameraaufnahme)
+    }
+
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start(
+      { facingMode: "environment" }, // Rückkamera
+      {
+        fps: 10,
+        qrbox: 250
+      },
+      onScanSuccess,
+      onScanError
+    );
+  </script>
+</body>
+</html>
